@@ -52,7 +52,6 @@ function App() {
       api
         .getStartInfo()
         .then((startData) => {
-          // console.log(startData);
           const [userData, initialCards] = startData;
           setCurrentUser(userData);
           setCards(initialCards.reverse());
@@ -149,7 +148,7 @@ function App() {
       .signIn(signInData)
       .then((res) => {
         localStorage.setItem('token', res.token);
-        checkToken(localStorage.getItem('token'));
+        checkToken();
       })
       .catch((err) => {
         setIsResponseOk(false);
@@ -190,6 +189,7 @@ function App() {
     setCurrentUser({});
     navigate('/login', { replace: true });
   };
+
   return (
     <IsAnyPopupOpenedContext.Provider value={isAnyPopupOpened}>
       <CurrentUserContext.Provider value={currentUser}>

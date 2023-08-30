@@ -28,6 +28,7 @@ function Main({
       )),
     [cards, onCardClick, onCardDeleteClick, onCardLikeClick],
   );
+
   return (
     <main>
       {/* START PROFILE*/}
