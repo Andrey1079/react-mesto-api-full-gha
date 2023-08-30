@@ -1,0 +1,5 @@
+.header {
+  display: grid;
+  grid-template-columns: 1fr min-content min-content;
+  grid-template-rows: repeat(2, min-content);
+}

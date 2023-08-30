@@ -1,0 +1,6 @@
+.gallery__liked-user-avatar {
+    border-radius: 50%;
+    width: 20%;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }

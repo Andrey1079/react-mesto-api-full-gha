@@ -1,0 +1,10 @@
+.page__header {
+  margin: 45px auto 0 auto;
+}
+
+/* styles for 320-934 */
+@media screen and (max-width: 933px) {
+  .page__header {
+    margin-top: 28px;
+  }
+}

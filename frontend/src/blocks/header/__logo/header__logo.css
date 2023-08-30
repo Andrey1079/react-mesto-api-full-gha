@@ -1,0 +1,28 @@
+.header__logo {
+  justify-self: flex-start;
+  width: 142px;
+  object-fit: cover;
+  margin-bottom: 41px;
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+
+.header__logo:hover {
+  background-image: url(../../../images/black_logo.svg);
+}
+
+/* slyles for 600-934 */
+@media screen and (max-width: 933px) {
+  .header__logo {
+    margin-left: 27px;
+    margin-bottom: 31.6px;
+    width: 120px;
+  }
+}
+
+/* slyles for 320-599 */
+@media screen and (max-width: 599px) {
+  .header__logo {
+    width: 103.74px;
+  }
+}

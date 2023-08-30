@@ -1,0 +1,9 @@
+.header__login {
+  color: white;
+  margin: 0;
+}
+@media screen and (max-width: 520px) {
+  .header__login {
+    margin-bottom: 18px;
+  }
+}

@@ -1,0 +1,18 @@
+.burger-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 21px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.burger-button-top,
+.burger-button-middle,
+.burger-button-bottom {
+  height: 3px;
+  width: 100%;
+  background-color: white;
+  border: none;
+}

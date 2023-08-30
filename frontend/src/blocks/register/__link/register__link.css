@@ -1,0 +1,11 @@
+.register__link {
+  display: inline-block;
+  color: white;
+
+  margin-left: 5px;
+
+  text-decoration: none;
+}
+.register__link:hover {
+  opacity: 0.6;
+}

@@ -1,0 +1,6 @@
+.profile__about-user {
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+  min-width: 282px;
+}

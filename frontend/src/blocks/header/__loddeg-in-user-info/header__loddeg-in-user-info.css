@@ -1,0 +1,20 @@
+.header__loddeg-in-user-info {
+  display: flex;
+  margin-top: 6px;
+}
+@media screen and (max-width: 520px) {
+  .header__loddeg-in-user-info {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    margin-top: 12px;
+    flex-direction: column;
+    align-items: center;
+    display: none;
+    margin-bottom: 40px;
+  }
+  .header__loddeg-in-user-info_active {
+    display: flex;
+  }
+}

@@ -1,0 +1,17 @@
+.popup__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  background-color: #fff;
+  border-radius: 10px;
+  margin: auto;
+  width: 430px;
+}
+
+/* styles for 320-527 */
+@media screen and (max-width: 527px) {
+  .popup__card {
+    width: 282px;
+  }
+}
