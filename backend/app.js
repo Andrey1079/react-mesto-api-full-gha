@@ -19,12 +19,19 @@ const limiter = rateLimit({
 mongoose.connect(DB_URL, {
   useNewUrlParser: true,
 });
+
 app.use(limiter);
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(requestLogger);
 
 app.use(cors());
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.use('/', require('./routes/routes'));
 
