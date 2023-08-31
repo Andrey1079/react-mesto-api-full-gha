@@ -24,7 +24,7 @@ module.exports.createCard = (req, res, next) => {
   })
     .then((card) => res.status(httpConstants.HTTP_STATUS_CREATED).send(card))
     .catch((err) => {
-      if (err instanceof MongooseError) {
+      if (err.name === 'ValidationError') {
         next(new BadRequest(err.message));
         return;
       }
@@ -39,18 +39,6 @@ module.exports.deleteCard = (req, res, next) => {
         Card.deleteOne(card)
           .then(() => res.send({ message: 'Пост удален' }))
           .catch((err) => {
-            if (err instanceof MongooseError) {
-              switch (err.statusCode) {
-                case '400':
-                  next(new BadRequest(err.message));
-                  break;
-                case '404':
-                  next(new NotFound(err.message));
-                  break;
-                default:
-              }
-            }
-
             next(err);
           });
       } else {
@@ -74,21 +62,6 @@ module.exports.setLike = (req, res, next) => {
       res.send(card);
     })
     .catch((err) => {
-      if (err instanceof MongooseError) {
-        switch (err.statusCode) {
-          case '400':
-            next(new BadRequest(err.message));
-            break;
-          case '404':
-            next(new NotFound(err.message));
-            break;
-          default:
-        }
-        if (err.name === 'CastError') {
-          next(new BadRequest('не корректный id'));
-          return;
-        }
-      }
       next(err);
     });
 };

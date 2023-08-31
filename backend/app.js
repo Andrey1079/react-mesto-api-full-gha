@@ -19,11 +19,11 @@ const limiter = rateLimit({
 mongoose.connect(DB_URL, {
   useNewUrlParser: true,
 });
+app.use(requestLogger);
 
 app.use(limiter);
 app.use(helmet());
 app.use(bodyParser.json());
-app.use(requestLogger);
 
 app.use(cors());
 

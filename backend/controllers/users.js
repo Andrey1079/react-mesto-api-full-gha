@@ -1,5 +1,4 @@
 const httpConstants = require('http2').constants;
-const { MongooseError } = require('mongoose');
 const escape = require('escape-html');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -7,7 +6,6 @@ const User = require('../models/user');
 const BadRequest = require('../Errors/BadRequest');
 const NotFound = require('../Errors/NotFound');
 const Conflict = require('../Errors/Conflict');
-const UnAuthorized = require('../Errors/UnAuthorized');
 
 const { JWT_SECRET, NODE_ENV } = process.env;
 module.exports.getUsers = (req, res, next) => {
@@ -23,21 +21,11 @@ module.exports.getUserById = (req, res, next) => {
     .orFail(new NotFound('такого пользователя не существует'))
     .then((user) => res.send(user))
     .catch((err) => {
-      if (err instanceof MongooseError) {
-        switch (err.statusCode) {
-          case '400':
-            next(new BadRequest(err.message));
-            break;
-          case '404':
-            next(new NotFound(err.message));
-            break;
-          default:
-        }
-        if (err.name === 'CastError') {
-          next(new BadRequest('не корректный id'));
-          return;
-        }
+      if (err.name === 'CastError') {
+        next(new BadRequest('не корректный id'));
+        return;
       }
+
       next(err);
     });
 };
@@ -67,7 +55,7 @@ module.exports.createUser = (req, res, next) => {
       })
 
       .catch((err) => {
-        if (err instanceof MongooseError) {
+        if (err.name === 'ValidationError') {
           next(new BadRequest(err.message));
           return;
         }
@@ -93,7 +81,7 @@ module.exports.updateUserInfo = (req, res, next) => {
   User.findByIdAndUpdate(req.user._id, req.body, { new: true, runValidators: true })
     .then((user) => res.send(user))
     .catch((err) => {
-      if (err instanceof MongooseError) {
+      if (err.name === 'ValidationError') {
         next(new BadRequest(err.message));
         return;
       }
@@ -113,14 +101,12 @@ module.exports.login = (req, res, next) => {
       res.send({ token });
     })
     .catch((err) => {
-      if (err instanceof MongooseError) {
-        next(new UnAuthorized(err.message));
-        return;
-      }
       next(err);
     });
 };
 
-module.exports.getCurrentUserInfo = (req, res) => {
-  User.findById(req.user._id).then((user) => res.status(200).send(user));
+module.exports.getCurrentUserInfo = (req, res, next) => {
+  User.findById(req.user._id)
+    .then((user) => res.status(200).send(user))
+    .catch(next);
 };
